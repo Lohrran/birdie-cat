@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpawnScript : MonoBehaviour {
+[System.Serializable]
+public class Spawnable
+{
+	public GameObject enemyPrefab;
+	public GameObject alertPrefab;
+	[HideInInspector]
+	public float weight;
+}
 
-	[System.Serializable]
-	public class Spawnable
-	{
-		public GameObject enemyPrefab;
-		public GameObject alertPrefab;
-		[HideInInspector]
-		public float weight;
-	}
-
+public class EnemySpawnScript : MonoBehaviour 
+{
 	public Spawnable[] spawnList; 
 	public float xPos;
 
@@ -23,6 +23,9 @@ public class EnemySpawnScript : MonoBehaviour {
 	public GameObject enemyGhost;
 	[HideInInspector]
 	public bool inUse;
+
+	private GameObject alert;
+	private GameObject enemy;
 
 	#region Unity
 	void OnValidate()
@@ -48,15 +51,7 @@ public class EnemySpawnScript : MonoBehaviour {
 
 	void Update()
 	{
-		if (enemyGhost != null)
-		{
-			inUse = true;
-		}
-
-		else
-		{
-			inUse = false;
-		}
+		AvailableSpot ();
 	}
 	#endregion
 
@@ -76,17 +71,45 @@ public class EnemySpawnScript : MonoBehaviour {
 
 	public void SpawnAlert()
 	{
-		alertToDestroy = (GameObject) Instantiate (spawnList [chosenIndex].alertPrefab, new Vector2(xPos, transform.position.y), Quaternion.identity);
+		//alertToDestroy = (GameObject) Instantiate (spawnList [chosenIndex].alertPrefab, new Vector2(xPos, transform.position.y), Quaternion.identity);
+
+		alert = ObjectPooler.SharedInstance.GetPooledGameObject (spawnList[chosenIndex].alertPrefab.tag);
+		if (alert != null)
+		{
+			alert.transform.position = new Vector2 (xPos, transform.position.y);
+			alert.SetActive (true);
+			inUse = true;
+		}
 	}
 
 	public void DestroyAlert()
 	{
-		Destroy (alertToDestroy);
+		alert.SetActive (false);
 	}
 
 	public void SpawnEnemy()
 	{
-		enemyGhost = (GameObject) Instantiate (spawnList [chosenIndex].enemyPrefab, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+		enemy = ObjectPooler.SharedInstance.GetPooledGameObject (spawnList[chosenIndex].enemyPrefab.tag);
+		if (enemy != null)
+		{
+			enemy.transform.position = new Vector2 (transform.position.x, transform.position.y);
+			enemy.SetActive (true);
+		}
+	}
+
+	public void AvailableSpot()
+	{
+		if (enemy != null)
+		{
+			if (enemy.GetComponent<EnemyMasterScript> ().GetCurrentState () == true) 
+			{
+				inUse = true;
+			}
+			else
+			{
+				inUse = false;
+			}
+		}
 	}
 	#endregion
 }

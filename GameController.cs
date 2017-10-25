@@ -19,6 +19,9 @@ public class GameController : MonoBehaviour {
 	private float timer;
 	private float timerSet;
 
+	private int x = 0;
+
+
 	#region GlobalVariables
 	public static class GlobalVariables
 	{
@@ -90,6 +93,8 @@ public class GameController : MonoBehaviour {
 			canvasGameOver.SetActive (true);
 			GlobalVariables.lastTimeStar.Clear ();
 			GlobalVariables.lastTimeStarAverage = 0;
+			PlusScoreToCurrency ();
+
 		}
 	}
 
@@ -111,7 +116,6 @@ public class GameController : MonoBehaviour {
 			GlobalVariables.lastTimeStarAverage = GlobalVariables.lastTimeStarAverage * -1;
 			//Debug.Log ("Star Time: " + GlobalVariables.lastTimeStarAverage);
 		}
-
 	}
 
 	void TimerStar()
@@ -123,5 +127,17 @@ public class GameController : MonoBehaviour {
 			timer = timerSet;;
 		}
 	}
+
+	void PlusScoreToCurrency()
+	{
+		while (x <= 0)
+		{
+			StorageData.Instance.currency += GameController.GlobalVariables.points;
+			StorageData.Instance.Save ();
+
+			x += 1;
+		}
+	}
+
 	#endregion
 }

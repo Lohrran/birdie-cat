@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyStraightLine : EnemyMasterScript 
 {
 	#region Movement
+
 	protected override void Movement()
 	{
 		transform.position = new Vector2 (transform.position.x + (speed * Time.deltaTime), transform.position.y);

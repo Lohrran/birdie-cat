@@ -34,7 +34,11 @@ public class PickUpMaster : MonoBehaviour
 		if (transform.position.x > 0) 
 		{
 			speed *= -1;
-		} 
+		}
+		else
+		{
+			sprite.flipX = true;
+		}
 	}
 
 	void Movement () 

@@ -28,7 +28,7 @@ public class TrailObject : MonoBehaviour
 
 			mRenderer.color = Color.Lerp (mStartColor, mEndColor, mTimeDisplayed / mDisplayTime);
 
-			if(mTimeDisplayed > mDisplayTime)
+			if(mTimeDisplayed >= mDisplayTime)
 			{
 				mSpawner.RemoveTrailObject (gameObject);
 				mbInUse = false;

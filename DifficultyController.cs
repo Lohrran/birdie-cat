@@ -25,7 +25,6 @@ public class DifficultyController : MonoBehaviour {
 	{
 		FuzzyTimer ();
 		ControlCurve ();
-		Debug.Log ("StarTakeAvarege: " + GameController.GlobalVariables.lastTimeStarAverage);
 	}
 	#endregion
 
@@ -34,8 +33,9 @@ public class DifficultyController : MonoBehaviour {
 		//EASIEST
 		if (controlDifficulty >= 0 && controlDifficulty <= 12)
 		{			
-			Debug.Log("EASIEST");
+			//Debug.Log("EASIEST");
 			masterSpawn.qtdEnemiesAllowedOnScene = 2;
+			masterSpawn.delayAfterAlert = 1.4f;
 			enemy01.weight = 80;
 			enemy02.weight = 20;
 			enemy03.weight = 0;
@@ -45,8 +45,9 @@ public class DifficultyController : MonoBehaviour {
 		//EASIER
 		else if (controlDifficulty == 13)
 		{
-			Debug.Log("EASIER");
+			//Debug.Log("EASIER");
 			masterSpawn.qtdEnemiesAllowedOnScene = 2;
+			masterSpawn.delayAfterAlert = 1.2f;
 			enemy01.weight = 45;
 			enemy02.weight = 30;
 			enemy03.weight = 25;
@@ -56,8 +57,9 @@ public class DifficultyController : MonoBehaviour {
 		//EASY
 		else if (controlDifficulty >= 14 && controlDifficulty <= 15)
 		{
-			Debug.Log("EASY");
+			//Debug.Log("EASY");
 			masterSpawn.qtdEnemiesAllowedOnScene = 3;
+			masterSpawn.delayAfterAlert = 1f;
 			enemy01.weight = 25;
 			enemy02.weight = 35;
 			enemy03.weight = 35;
@@ -67,8 +69,9 @@ public class DifficultyController : MonoBehaviour {
 		//MEDIUM
 		else if (controlDifficulty >= 16 && controlDifficulty <= 18)
 		{
-			Debug.Log("MEDIUM");
+			//Debug.Log("MEDIUM");
 			masterSpawn.qtdEnemiesAllowedOnScene = 5;
+			masterSpawn.delayAfterAlert = 0.8f;
 			enemy01.weight = 45;
 			enemy02.weight = 10;
 			enemy03.weight = 45;
@@ -78,8 +81,9 @@ public class DifficultyController : MonoBehaviour {
 		//HARD
 		else if (controlDifficulty  >= 19 && controlDifficulty <= 20)
 		{
-			Debug.Log("HARD");
+			//Debug.Log("HARD");
 			masterSpawn.qtdEnemiesAllowedOnScene = 6;
+			masterSpawn.delayAfterAlert = 0.6f;
 			enemy01.weight = 10;
 			enemy02.weight = 70;
 			enemy03.weight = 10;
@@ -89,9 +93,9 @@ public class DifficultyController : MonoBehaviour {
 		//HARDER
 		else if (controlDifficulty == 21 || controlDifficulty == 22)
 		{
-			Debug.Log("HARDER");
+			//Debug.Log("HARDER");
 			masterSpawn.qtdEnemiesAllowedOnScene = 8;
-			masterSpawn.delayAfterAlert = 0.8f;
+			masterSpawn.delayAfterAlert = 0.4f;
 			enemy01.weight = 20;
 			enemy02.weight = 20;
 			enemy03.weight = 55;
@@ -101,9 +105,9 @@ public class DifficultyController : MonoBehaviour {
 		//HARDEST
 		else if (controlDifficulty >= 23)
 		{
-			Debug.Log("HARDEST");
+			//Debug.Log("HARDEST");
 			masterSpawn.qtdEnemiesAllowedOnScene = 10;
-			masterSpawn.delayAfterAlert = 0.6f;
+			masterSpawn.delayAfterAlert = 0.2f;
 			enemy01.weight = 10;
 			enemy02.weight = 40;
 			enemy03.weight = 30;
@@ -112,17 +116,14 @@ public class DifficultyController : MonoBehaviour {
 
 		else 
 		{
-			Debug.Log("EASY");
+			//Debug.Log("EASY");
 			masterSpawn.qtdEnemiesAllowedOnScene = 3;
+			masterSpawn.delayAfterAlert = 1f;
 			enemy01.weight = 25;
 			enemy02.weight = 35;
 			enemy03.weight = 35;
 			enemy05.weight = 5;
-
-			//Debug.Log ("Defuzzy: " + controlDifficulty);
-
 		}
-			
 	}
 
 	void FuzzyTimer()
@@ -180,7 +181,7 @@ public class DifficultyController : MonoBehaviour {
 		scoresMeanValue.MembershipFunctionCollection.Add (new MembershipFunction ("High", 10, 12, 20, 40));
 
 		LinguisticVariable timeToTakeStar = new LinguisticVariable ("Starmer");
-		timeToTakeStar.MembershipFunctionCollection.Add (new MembershipFunction("Fast", 0, 0.5, 0.5, 0.1));
+		timeToTakeStar.MembershipFunctionCollection.Add (new MembershipFunction("Fast", 0, 0.5, 0.5, 1));
 		timeToTakeStar.MembershipFunctionCollection.Add (new MembershipFunction ("Medium", 0.5, 1, 1.5, 2));
 		timeToTakeStar.MembershipFunctionCollection.Add (new MembershipFunction ("Slow", 1.5, 2, 2.5, 3));
 

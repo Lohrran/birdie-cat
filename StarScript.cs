@@ -11,7 +11,7 @@ public class StarScript : MonoBehaviour
 	private bool canMove;
 	private Animator anim;
 
-	private Trail trail;
+//	private Trail trail;
 
 	private GameObject player;
 	public float speedToPlayer;
@@ -21,7 +21,8 @@ public class StarScript : MonoBehaviour
 	private ParticleSystem starExplosion;
 
 	#region Unity
-	void Start ()
+
+	void OnEnable()
 	{
 		timer = 0;
 		canMove = false;
@@ -30,12 +31,20 @@ public class StarScript : MonoBehaviour
 		target = GameObject.FindGameObjectWithTag ("Score").GetComponent<RectTransform> ();
 		player = GameObject.FindGameObjectWithTag ("Player");
 
-		targetAnim = target.GetComponent<Animator> ();
 		anim = GetComponentInChildren<Animator> ();
-		trail = GetComponentInChildren <Trail> ();
-		starExplosion = GetComponentInChildren<ParticleSystem> ();	
+		targetAnim = target.GetComponent<Animator> ();
+//		trail = GetComponentInChildren <Trail> ();
+		//FindObjectOfType<AudioManager> ().Play ("Star Spawn");
+	
+		starExplosion = GetComponentInChildren<ParticleSystem> ();
+		//trail.SetEnabled (false);
 	}
 
+	void OnDisable()
+	{
+		//trail.SetEnabled (false);
+	}
+		
 	void Update ()
 	{		
 		Hitted ();
@@ -51,13 +60,20 @@ public class StarScript : MonoBehaviour
 
 		MoveToScore ();
 
-		if (Vector2.Distance (transform.position, target.position) < 0.1f) 
+		if (target != null) 
 		{
-			canMove = false;
-			targetAnim.SetTrigger ("GetPoint");
-			Dead ();
-		}
+			if (Vector2.Distance (transform.position, target.position) < 0.1f) 
+			{
+				canMove = false;
 
+				//FindObjectOfType<AudioManager> ().Play ("Star Hit Score");
+
+				targetAnim.SetTrigger ("GetPoint");
+
+				Dead ();
+			}
+		}
+			
 		MoveToPlayer ();
 	}
 	#endregion
@@ -95,6 +111,7 @@ public class StarScript : MonoBehaviour
 	IEnumerator Hitted()
 	{
 		starExplosion.Play ();
+
 		anim.SetTrigger ("Hitted");
 		iAmAlive = false;
 		GameController.GlobalVariables.lastTimeStar.Add (timer);
@@ -102,10 +119,10 @@ public class StarScript : MonoBehaviour
 
 		yield return new WaitForSeconds (anim.GetCurrentAnimatorStateInfo(0).length - 0.32f);
 
+		FindObjectOfType<AudioManager> ().Play ("Star Hitted");
 
 		canMove = true;
 		gameObject.tag = "DeadStar";
-		
 
 	}
 
@@ -122,7 +139,10 @@ public class StarScript : MonoBehaviour
 	{
 		GameController.GlobalVariables.points += 1;
 		targetAnim.SetTrigger ("Idle");
-		Destroy (this.gameObject);
+
+		//Object Pooling
+		gameObject.SetActive (false);
+		gameObject.tag = "Star";
 	}
 	#endregion
 }

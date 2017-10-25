@@ -21,6 +21,7 @@ public class BeforeStartManager : MonoBehaviour {
 		starSpawn.SetActive (false);
 		powerUpSpawn.SetActive (false);
 		canvasInGame.SetActive (false);
+		gameObject.GetComponent<ObjectPooler> ().enabled = false;
 	}
 	#endregion
 
@@ -28,13 +29,14 @@ public class BeforeStartManager : MonoBehaviour {
 	public void StartBtn()
 	{
 		GameController.GlobalVariables.starTimeMatch = true;
-		
+
 		player.GetComponent<Rigidbody2D> ().gravityScale = 1;
 		player.GetComponent<PlayerScript> ().enabled = true;
 		masterSpawn.SetActive (true);
 		starSpawn.SetActive (true);
 		powerUpSpawn.SetActive (true);
 		canvasInGame.SetActive (true);
+		gameObject.GetComponent<ObjectPooler> ().enabled = true;
 		canvasBeforeStart.SetActive (false);
 	}
 	#endregion

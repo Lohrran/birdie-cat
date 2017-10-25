@@ -34,10 +34,15 @@ public class StarSpawnScript : MonoBehaviour {
 		// Check the distance between the two points
 		float dist = Mathf.Abs (starPositionY - playerTransform.position.y);
 
-		// Instantiate the Star at (x, y)
-		if(dist >= min && dist <= max)
+		// Instantiate the Star at (x, y) with Object Pooling
+		GameObject star = ObjectPooler.SharedInstance.GetPooledGameObject("Star");
+		if (star != null)
 		{
-			Instantiate(starPrefab, new Vector2(0, starPositionY), Quaternion.identity);
+			if (dist >= min && dist <= max) 
+			{
+				star.transform.position = new Vector2 (0, starPositionY);
+				star.SetActive (true);
+			}
 		}
 	}
 	#endregion		
