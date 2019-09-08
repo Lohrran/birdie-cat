@@ -9,7 +9,7 @@
 
 
 ## Introduction
-The game is used to demonstrate the application of fuzzy logic in the creation of a dynamic difficulty curve. It was designed from the beginning of its development process to apply this concept. Hence, an adaptive system was developed for the difficulty control of the game Birdie Cat. What is more, a bank of rules was built to discover the user’s capability using Fuzzy Logic, receiving input variables such as score, mortality rate, and among other variables.
+The game is used to demonstrate the application of fuzzy logic in the creation of a dynamic difficulty curve. It was designed from the beginning of its development process to apply this concept. What is more, a bank of rules was built to discover the user’s capability using Fuzzy Logic, receiving input variables such as score, mortality rate, and among other variables.
 
 ## Project
 <img align="right" width="128" height="128" src="https://i.ibb.co/pP0kzp9/estudantes-preto-en-selecao.png">Birdie Cat was selected on the **[SBGames Brazil](https://www.sbgames.org/)** 2017 to the category of **[Student Game](http://sbgames.org/sbgames2017/downloads/festival_selecao.pdf)**, unfortunately was not select between the best three. Anyway I got te chance to be there and present my game to a large number of people and talk to anothers developers about games and know their projects, was a really fun experience 😄.
