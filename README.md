@@ -1,7 +1,6 @@
 # Birdie Cat
 
-> An Android Game made in Unity, using a **Fuzzy Logic** machine to calculate which level of difficult the player is.
-
+> An Android Game made in Unity, using a **Fuzzy Logic** machine to calculate the player capability.
 
 <p align="center">
   <img width="728" height="90" src="https://i.ibb.co/JFzJKcP/birdiecat-banner.png">
